@@ -3,6 +3,7 @@ package com.jp.ebankservice.mcp;
 import com.jp.ebankservice.domain.*;
 import com.jp.ebankservice.domain.Currency;
 import com.jp.ebankservice.domain.Transaction;
+import com.jp.ebankservice.dto.*;
 import com.jp.ebankservice.services.*;
 import org.springframework.ai.mcp.annotation.*;
 import org.springframework.stereotype.*;
@@ -19,12 +20,12 @@ public class EbankMcpRestController {
     }
 
     @McpTool(description = "get specific account by id")
-    public Account getAccountById( @McpArg(description = "account id") Long id) {
+    public AccountResponseDTO getAccountById(@McpArg(description = "account id") Long id) {
         return ebankService.getAccountById(id);
     }
 
     @McpTool(description = "get all accounts")
-    public List<Account> getAllAccounts() {
+    public List<AccountResponseDTO> getAllAccounts() {
         return ebankService.getAllAccounts();
     }
 
@@ -45,7 +46,7 @@ public class EbankMcpRestController {
 
 
     @McpTool(description = "save a new account")
-    public Account saveAccount(
+    public AccountResponseDTO saveAccount(
             @McpArg(description = "the initial balance")  double initialBalance,
             @McpArg(description = "the account currency")  Currency currency) {
         return ebankService.saveAccount(initialBalance, currency);
@@ -53,7 +54,7 @@ public class EbankMcpRestController {
 
 
     @McpTool(description = "credit an account ")
-    public Account credit(
+    public AccountResponseDTO credit(
             @McpArg(description = "the credited account id")  Long id,
             @McpArg(description = "the credited  amount ")  double amount) {
         return ebankService.credit(id, amount);
@@ -61,7 +62,7 @@ public class EbankMcpRestController {
 
 
     @McpTool(description = "debit an account")
-    public Account debit(
+    public AccountResponseDTO debit(
             @McpArg(description = "the debited account id")  Long id,
             @McpArg(description = "the debited amount") double amount) {
         return ebankService.debit(id, amount);

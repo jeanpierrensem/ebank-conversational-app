@@ -3,6 +3,7 @@ package com.jp.ebankservice.rest;
 import com.jp.ebankservice.domain.*;
 import com.jp.ebankservice.domain.Currency;
 import com.jp.ebankservice.domain.Transaction;
+import com.jp.ebankservice.dto.*;
 import com.jp.ebankservice.services.*;
 import jakarta.transaction.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,13 @@ public class EbankRestController {
     }
 
     @GetMapping("/accounts/{id}")
-    public Account getAccountById(@PathVariable  Long id) {
+    public AccountResponseDTO getAccountById(@PathVariable  Long id) {
+
         return ebankService.getAccountById(id);
     }
 
     @GetMapping("/accounts")
-    public List<Account> getAllAccounts() {
+    public List<AccountResponseDTO> getAllAccounts() {
         return ebankService.getAllAccounts();
     }
 
@@ -44,25 +46,25 @@ public class EbankRestController {
 
     @Transactional
     @PostMapping("/accounts/save")
-    public Account saveAccount(double initialBalance, Currency currency) {
+    public AccountResponseDTO saveAccount(double initialBalance, Currency currency) {
         return ebankService.saveAccount(initialBalance, currency);
     }
 
     @Transactional
     @PostMapping("/accounts/credit")
-    public Account credit(Long id, double amount) {
+    public AccountResponseDTO credit(Long id, double amount) {
         return ebankService.credit(id, amount);
     }
 
     @Transactional
     @PostMapping("/accounts/debit")
-    public Account debit(Long id, double amount) {
+    public AccountResponseDTO debit(Long id, double amount) {
         return ebankService.debit(id, amount);
     }
 
     @Transactional
     @PostMapping("/accounts/transfer")
-    public Account transfer(Long sourceAccountId, Long destinationAccountId, double amount) {
+    public AccountResponseDTO transfer(Long sourceAccountId, Long destinationAccountId, double amount) {
         return ebankService.transfer(sourceAccountId, destinationAccountId, amount);
     }
 
